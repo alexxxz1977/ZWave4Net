@@ -27,6 +27,13 @@ namespace ZWave.Channel
             _port = new System.IO.Ports.SerialPort(name, 115200, System.IO.Ports.Parity.None, 8, System.IO.Ports.StopBits.One);
         }
 
+        public string Name { get => _port.PortName; }
+
+        public static string[] GetPortNames()
+        {
+            return System.IO.Ports.SerialPort.GetPortNames();
+        }
+
         public void Open()
         {
             _port.Open();

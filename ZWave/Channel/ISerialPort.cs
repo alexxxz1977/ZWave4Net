@@ -7,6 +7,8 @@ namespace ZWave.Channel
         Stream InputStream { get; }
         Stream OutputStream { get; }
 
+        string Name { get; }
+
         void Close();
         void Open();
     }

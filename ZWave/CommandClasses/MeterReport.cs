@@ -12,6 +12,8 @@ namespace ZWave.CommandClasses
         public readonly MeterType Type;
         public readonly float Value;
         public readonly string Unit;
+        public readonly float PrevValue;
+        public readonly ushort Delta;
         public readonly Enum Scale;
 
         internal MeterReport(Node node, byte[] payload) : base(node)
@@ -23,9 +25,22 @@ namespace ZWave.CommandClasses
 
             var scale = default(byte);
             Type = (MeterType)(payload[0] & 0x1F);
-            Value = PayloadConverter.ToFloat(payload.Skip(1).ToArray(), out scale);
+            bool scaleBit2 = (payload[0] & (1 << 7)) != 0;
+            Value = PayloadConverter.ToFloat(payload.Skip(1).ToArray(), out scale, scaleBit2);
             Unit = GetUnit(Type, scale);
             Scale = GetScale(Type, scale);
+
+            // to extract previouse values
+            int size = payload[1] & 0x07;
+            if (payload.Length >= 4 + size * 2)
+            {
+                var arr = new byte[size + 1];
+                arr[0] = payload[1];
+                Array.Copy(payload, size + 4, arr, 1, size);
+
+                PrevValue = PayloadConverter.ToFloat(arr, out scale, scaleBit2);
+                Delta = PayloadConverter.ToUInt16(payload, 2 + size);
+            }
         }
 
         public static string GetUnit(MeterType type, byte scale)

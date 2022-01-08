@@ -9,7 +9,7 @@ namespace ZWave.CommandClasses
 {
     public class CentralScene : CommandClassBase
     {
-        enum command
+        internal enum command
         {
             SupportedGet = 0x01,
             SupportedReport = 0x02,

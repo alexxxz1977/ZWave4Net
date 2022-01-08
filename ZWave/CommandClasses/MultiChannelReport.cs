@@ -7,8 +7,10 @@ namespace ZWave.CommandClasses
 {
     public class MultiChannelReport : NodeReport
     {
+        public readonly CommandClass CommandClass;
         public readonly byte ControllerID;
         public readonly byte EndPointID;
+        public readonly string Payload;
 
         public readonly NodeReport Report;
 
@@ -21,17 +23,40 @@ namespace ZWave.CommandClasses
 
             EndPointID = payload[0];
             ControllerID = payload[1];
+            CommandClass = (CommandClass)payload[2];
 
             // check sub report
-            if (payload.Length > 3 && payload[2] == Convert.ToByte(CommandClass.SwitchBinary) && payload[3] == Convert.ToByte(SwitchBinary.command.Report))
+            if (payload.Length > 3)
             {
-                Report = new SwitchBinaryReport(node, payload.Skip(4).ToArray<Byte>());
+                switch (CommandClass)
+                {
+                    case CommandClass.SwitchBinary:
+                        if (payload[3] == Convert.ToByte(SwitchBinary.command.Report))
+                        {
+                            Report = new SwitchBinaryReport(node, payload.Skip(4).ToArray<Byte>());
+                        }
+                        break;
+                    case CommandClass.SensorMultiLevel:
+                        if (payload[3] == Convert.ToByte(SensorMultiLevel.command.Report))
+                        {
+                            Report = new SensorMultiLevelReport(node, payload.Skip(4).ToArray<Byte>());
+                        }
+                        break;
+                    case CommandClass.CentralScene:
+                        if (payload[3] == Convert.ToByte(CentralScene.command.Notification))
+                        {
+                            Report = new CentralSceneReport(node, payload.Skip(4).ToArray<Byte>());
+                        }
+                        break;
+                }
             }
+
+            Payload = BitConverter.ToString(payload);
         }
 
         public override string ToString()
         {
-            return $"ControllerID:{ControllerID}. EndPointID:{EndPointID}. Report:{Report}";
+            return $"ControllerID:{ControllerID}. EndPointID:{EndPointID}. Report:{Report}, payload:{Payload}";
         }
     }
 }
