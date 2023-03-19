@@ -42,7 +42,7 @@ namespace ZWave.Channel
             _semaphore = new SemaphoreSlim(1, 1);
         }
 
-#if NET45 || WINDOWS_UWP || NETCOREAPP2_0 || NETCOREAPP3_0 || NETSTANDARD2_0 || NET5_0
+#if NET45 || WINDOWS_UWP || NETCOREAPP2_0 || NETCOREAPP3_1 || NETCOREAPP3_0 || NETSTANDARD2_0 || NET5_0
         public ZWaveChannel(string portName)
              : this(new SerialPort(portName))
         {

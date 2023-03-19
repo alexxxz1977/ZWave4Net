@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>ZWave</AssemblyName>
     <RootNamespace>Wave</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETCOREAPP3_0</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP3_1</DefineConstants>
     <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
