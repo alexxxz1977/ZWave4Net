@@ -5,13 +5,13 @@
 
 Supported Targets:
 
+- .NET 6.0
 - .NET 5.0
 - .NET 4.8
-- .NET Core 2.0
-- .NET Core 3.0
 - .NET Standard 2.0
-- Universal Windows: uap10.0
-- Portable Class Library: net45 + win8
+- .NET Standard 2.1
+- .NET Core 3.1
+- Universal App Platform: win10
 
 Runs on Raspberry PI IoT Windows 10 (see note below)
 
@@ -19,30 +19,36 @@ NuGet package: https://www.nuget.org/packages/ZWave4Net/
 
 Supported Z-Wave command classes:
 
-- Alarm
-- Association
-- Basic
-- Battery
-- CentralScene
-- Clock
-- Color
-- Configuration
-- ManufacturerSpecific
-- Meter
+- Alarm v1-2
+- Association v1-3
+- Basic v1-2
+- Battery v1*
+- CentralScene v1*
+- Clock v1
+- Color v1-3
+- Configuration v1*
+- ManufacturerSpecific v1-2
+- Meter v1-6
 - MultiChannel
 - MultiChannelAssociation
-- SceneActivation
-- Schedule
-- SensorAlarm
-- SensorBinary
-- SensorMultiLevel
-- SwitchBinary
-- ThermostatFanMode
-- ThermostatMode
-- ThermostatOperatingState
-- ThermostatSetpoint
-- Version
-- WakeUp
+- NodeNaming v1
+- Notification v3-8
+- SceneActivation v1
+- Schedule v1
+- SensorAlarm v1
+- SensorBinary v1-2
+- SensorMultiLevel v1-11
+- SwitchAll v1
+- SwitchBinary v1-2
+- SwitchMultiLevel v1-2, 4*
+- SwitchToggleBinary v1
+- SwitchToggleMultiLevel v1
+- ThermostatFanMode v1*
+- ThermostatMode v1*
+- ThermostatOperatingState v1*
+- ThermostatSetpoint v1*
+- Version v1-2*
+- WakeUp v1-3
  
 FIBARO Wall Plug sample:
 
