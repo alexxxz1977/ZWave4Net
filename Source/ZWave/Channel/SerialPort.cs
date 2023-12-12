@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ZWave.Channel
 {
-#if NET6_0 || NET5_0 || NET48
+#if NET6_0 || NET5_0 || NET48 || NETCOREAPP3_1
     public class SerialPort : ISerialPort
     {
         private readonly System.IO.Ports.SerialPort _port;
@@ -18,6 +18,10 @@ namespace ZWave.Channel
         {
             get { return _port.BaseStream; }
         }
+
+        public string Name => _port.PortName;
+
+        public static string[] GetNames() => System.IO.Ports.SerialPort.GetPortNames();
 
         public SerialPort(string name)
         {
@@ -267,6 +271,13 @@ namespace ZWave.Channel
             get { return _serialPortStream; }
         }
 
+        public string Name => _serialPortStream.PortName;
+
+        public static string[] GetNames()
+        {
+            throw new NotImplementedException();
+        }
+
         public void Open()
         {
             _serialPortStream.Open();
@@ -279,5 +290,4 @@ namespace ZWave.Channel
     }
 
 #endif
-
 }

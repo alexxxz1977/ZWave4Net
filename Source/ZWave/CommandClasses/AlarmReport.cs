@@ -13,6 +13,7 @@ namespace ZWave.CommandClasses
         public byte Level { get; protected set; }
         public byte Status { get; protected set; }
         public NotificationState Event { get; protected set; }
+        public byte V1Event { get; protected set; }
         public byte SourceNodeID { get; protected set; }
         public byte[] Params { get; protected set; }
 
@@ -35,10 +36,7 @@ namespace ZWave.CommandClasses
                 Status = payload[3];
                 Type = (NotificationType)payload[4];
                 Event = (NotificationState)((payload[4] << 8) | payload[5]);
-                if (payload[5] == 0x0)
-                    Event = NotificationState.Idle;
-                else if (payload[5] == 0xFE)
-                    Event = NotificationState.Unknown;
+                V1Event = payload[5];
             }
             else
             {

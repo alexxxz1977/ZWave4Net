@@ -11,7 +11,7 @@ namespace ZWave.CommandClasses
 
         public event EventHandler<ReportEventArgs<SensorMultiLevelReport>> Changed;
 
-        enum command
+        internal enum command
         {
             SupportedGet = 0x01,
             SupportedReport = 0x02,

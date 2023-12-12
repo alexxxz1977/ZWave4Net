@@ -48,6 +48,7 @@ namespace ZWave
             _commandClasses.Add(new Meter(this));
             _commandClasses.Add(new MultiChannel(this));
             _commandClasses.Add(new MultiChannelAssociation(this));
+            _commandClasses.Add(new MultiCommand(this));
             _commandClasses.Add(new NodeNaming(this));
             _commandClasses.Add(new Notification(this));
             _commandClasses.Add(new SceneActivation(this));

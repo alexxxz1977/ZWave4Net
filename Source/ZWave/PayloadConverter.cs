@@ -243,6 +243,34 @@ namespace ZWave
             return payload;
         }
 
+        /*public static float ToFloat(byte[] payload, out byte scale)
+        {
+            // bits 7,6,5: precision, bits 4,3: scale, bits 2,1,0 : size
+            var precision = (byte)((payload[0] & 0xE0) >> 5);
+            scale = (byte)((payload[0] & 0x18) >> 3);
+            var size = (byte)(payload[0] & 0x07);
+
+            switch (size)
+            {
+                case sizeof(sbyte):
+                    {
+                        var value = (sbyte)payload[1];
+                        return (float)(value / Math.Pow(10, precision));
+                    }
+                case sizeof(short):
+                    {
+                        var value = ToInt16(payload, 1);
+                        return (float)(value / Math.Pow(10, precision));
+                    }
+                case sizeof(int):
+                    {
+                        var value = ToInt32(payload, 1);
+                        return (float)(value / Math.Pow(10, precision));
+                    }
+            }
+            return 0;
+        }*/
+
         public static float ToFloat(byte[] payload, out byte scale, bool scaleBit2 = false)
         {
             // bits 7,6,5: precision, bits 4,3: scale, bits 2,1,0 : size
@@ -270,5 +298,6 @@ namespace ZWave
             }
             return 0;
         }
+
     }
 }
