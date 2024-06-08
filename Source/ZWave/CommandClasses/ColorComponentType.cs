@@ -4,8 +4,8 @@
     {
         WarmWhite = 0,
         CoolWhite = 1,
-        Red = 2,
-        Green = 3,
+        Green = 2,
+        Red = 3,
         Blue = 4,
         Amber = 5,
         Cyan = 6,

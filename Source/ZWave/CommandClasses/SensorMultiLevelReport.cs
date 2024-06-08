@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ZWave.Channel;
 using ZWave.Channel.Protocol;
+using System.Text;
 
 namespace ZWave.CommandClasses
 {
     public class SensorMultiLevelReport : NodeReport
     {
+        public readonly string _fahrenheitStr = $"{(char)0xB0}F";
+        public readonly string _celsiusStr = $"{(char)0xB0}C";
+
         public readonly SensorType Type;
         public readonly float Value;
         public readonly string Unit;
@@ -26,7 +30,7 @@ namespace ZWave.CommandClasses
             Unit = GetUnit(Type, Scale);
         }
 
-        private static string GetUnit(SensorType type, byte scale)
+        private string GetUnit(SensorType type, byte scale)
         {
             var tankCapacityUnits = new[] { "l", "cbm", "gal" };
             var distanceUnits = new [] { "m", "cm", "ft" };
@@ -36,7 +40,7 @@ namespace ZWave.CommandClasses
 
             switch (type)
             {
-                case SensorType.Temperature: return(scale == 1 ? "°F" : "°C");
+                case SensorType.Temperature: return(scale == 1 ? _fahrenheitStr : _celsiusStr);
                 case SensorType.General: return (scale == 1 ? "" : "%");
                 case SensorType.Luminance: return(scale == 1 ? "lux" : "%");
                 case SensorType.Power: return(scale == 1 ? "BTU/h" : "W");
@@ -72,7 +76,7 @@ namespace ZWave.CommandClasses
                 case SensorType.FormaldehydeLevel: return ("mol/m3");
                 case SensorType.RadonConcentration: return (scale == 1 ? "pCi/L" : "bq/m3");
                 case SensorType.MethaneDensity: return ("mol/m3");
-                case SensorType.VolatileOrganicCompoundLevel: return (scale == 1 ? "ppm" : "mol/m3");
+                case SensorType.VOC: return (scale == 1 ? "ppm" : "mol/m3");
                 case SensorType.CarbonMonoxideLevel: return (scale == 1 ? "ppm" : "mol/m3");
                 case SensorType.SoilHumidity: return ("%");
                 case SensorType.SoilReactivity: return ("pH");

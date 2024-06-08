@@ -25,7 +25,7 @@ namespace ZWave.Channel
         public readonly ISerialPort Port;
         public TextWriter Log { get; set; }
         public TimeSpan ReceiveTimeout = TimeSpan.FromSeconds(2);
-        public TimeSpan ResponseTimeout = TimeSpan.FromSeconds(5);
+        public TimeSpan ResponseTimeout = TimeSpan.FromSeconds(10);
         public event EventHandler<NodeEventArgs> NodeEventReceived;
         public event EventHandler<NodeUpdateEventArgs> NodeUpdateReceived;
         internal event EventHandler<ControllerFunctionMessage> NodesNetworkChangeOccurred;

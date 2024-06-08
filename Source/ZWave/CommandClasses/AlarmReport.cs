@@ -17,6 +17,10 @@ namespace ZWave.CommandClasses
         public byte SourceNodeID { get; protected set; }
         public byte[] Params { get; protected set; }
 
+        public AlarmReport(Node node) : base(node)
+        {
+        }
+
         internal AlarmReport(Node node, byte[] payload) : base(node)
         {
             if (payload == null)

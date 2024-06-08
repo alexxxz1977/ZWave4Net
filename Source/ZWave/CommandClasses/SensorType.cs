@@ -45,7 +45,7 @@ namespace ZWave.CommandClasses
         FormaldehydeLevel = 0x24,
         RadonConcentration = 0x25,
         MethaneDensity = 0x26,
-        VolatileOrganicCompoundLevel = 0x27,
+        VOC = 0x27,
         CarbonMonoxideLevel = 0x28,
         SoilHumidity = 0x29,
         SoilReactivity = 0x2A,

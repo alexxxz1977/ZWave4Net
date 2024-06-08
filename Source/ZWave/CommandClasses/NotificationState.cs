@@ -103,6 +103,7 @@ namespace ZWave.CommandClasses
         BarrierNonZWave = 0x064C,
 
         //Home Security
+        HomeSecurityEventsClear = 0x0700,
         Intrusion = 0x0701,
         IntrusionUnknownLocation = 0x0702,
         TamperingProductCoverRemoved = 0x0703,
@@ -115,6 +116,7 @@ namespace ZWave.CommandClasses
         ImpactDetected = 0x070A,
         MagneticInterference = 0x070B,
         RFJamming = 0x070C,
+        HomeSecurityNoEvents = 0x07FE,
 
         //Power Management
         PowerApplied = 0x0801,

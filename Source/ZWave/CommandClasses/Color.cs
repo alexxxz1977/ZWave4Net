@@ -6,6 +6,7 @@ using ZWave.Channel;
 using System.Threading;
 using ZWave.Channel.Protocol;
 using System.Collections;
+using System.Threading.Channels;
 
 namespace ZWave.CommandClasses
 {
@@ -26,18 +27,41 @@ namespace ZWave.CommandClasses
         {
         }
 
+        public event EventHandler<ReportEventArgs<ColorReport>> Changed;
+
+        protected internal override void HandleEvent(Command command)
+        {
+            base.HandleEvent(command);
+
+            var report = new ColorReport(Node, command.Payload);
+            OnChanged(new ReportEventArgs<ColorReport>(report));
+        }
+
+        protected virtual void OnChanged(ReportEventArgs<ColorReport> e)
+        {
+            var handler = Changed;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
         public Task Set(ColorComponent[] components, TimeSpan? duration = null)
         {
-            return Set(components, CancellationToken.None);
+            return Set(components, CancellationToken.None, duration);
         }
 
         public async Task Set(ColorComponent[] components, CancellationToken cancellationToken, TimeSpan? duration = null)
         {
-            var payload = new List<byte>();
-            payload.Add((byte)Math.Min(components.Length, 31)); //31 Components max
+            var payload = new List<byte>
+            {
+                (byte)Math.Min(components.Length, 31) //31 Components max
+            };
             payload.AddRange(components.SelectMany(element => element.ToBytes()));
             if (duration != null)
+            {
                 payload.Add(PayloadConverter.GetByte(duration.Value));
+            }
             await Channel.Send(Node, new Command(Class, command.Set, payload.ToArray()), cancellationToken);
         }
 
